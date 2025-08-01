@@ -16,14 +16,14 @@ class RollingBallGame extends Forge2DGame with HasCollisionDetection {
   late Ball ball;
   late ScoreManager scoreManager;
   late StreamSubscription<AccelerometerEvent>? accelSub;
-  
+
   // Game state
   bool isGameOver = false;
   double tiltSensitivity = 15.0;
   Timer? scoreTimer;
   Timer? spawnTimer;
   final Random random = Random();
-  
+
   RollingBallGame() : super(gravity: Vector2(0, 20));
 
   @override
@@ -31,28 +31,28 @@ class RollingBallGame extends Forge2DGame with HasCollisionDetection {
     // Initialize score manager
     scoreManager = ScoreManager();
     add(scoreManager);
-    
+
     // Add ball
     ball = Ball();
     add(ball);
-    
+
     // Add floor
     add(Floor());
-    
+
     // Add initial obstacles and bounce pads
     _spawnObstacles();
-    
+
     // Start sensor listening (only on mobile)
     if (Platform.isAndroid || Platform.isIOS) {
       _startSensorListening();
     }
-    
+
     // Start score timer
     _startScoreTimer();
-    
+
     // Start spawn timer
     _startSpawnTimer();
-    
+
     // Show score overlay
     overlays.add('score');
   }
@@ -63,7 +63,7 @@ class RollingBallGame extends Forge2DGame with HasCollisionDetection {
     add(Obstacle(position: Vector2(15, 12)));
     add(Obstacle(position: Vector2(8, 16)));
     add(Obstacle(position: Vector2(18, 20)));
-    
+
     // Spawn bounce pads
     add(BouncePad(position: Vector2(12, 10)));
     add(BouncePad(position: Vector2(6, 14)));
@@ -97,7 +97,7 @@ class RollingBallGame extends Forge2DGame with HasCollisionDetection {
   void _spawnRandomObstacle() {
     final x = random.nextDouble() * 20;
     final y = random.nextDouble() * 10 + 5;
-    
+
     if (random.nextBool()) {
       add(Obstacle(position: Vector2(x, y)));
     } else {

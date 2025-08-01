@@ -53,7 +53,8 @@ class _GameScreenState extends State<GameScreen> {
       body: GameWidget(
         game: game,
         overlayBuilderMap: {
-          'score': (context, game) => ScoreOverlay(game: game as RollingBallGame),
+          'score': (context, game) =>
+              ScoreOverlay(game: game as RollingBallGame),
         },
       ),
     );
@@ -113,7 +114,7 @@ class ScoreOverlay extends StatelessWidget {
             ),
           ),
         ),
-        
+
         // Instructions
         Positioned(
           bottom: 50,

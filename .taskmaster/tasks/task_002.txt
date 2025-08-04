@@ -1,0 +1,11 @@
+# Task ID: 2
+# Title: Ball Physics Implementation
+# Status: done
+# Dependencies: 1
+# Priority: high
+# Description: Implement realistic ball physics with gravity, rolling mechanics, and proper collision detection. The ball should respond naturally to forces and roll down slopes.
+# Details:
+Create Ball component with CircleShape physics body. Configure density, friction, and restitution properties. Implement proper force application for tilt controls.
+
+# Test Strategy:
+Test ball movement under gravity, rolling behavior on slopes, and response to applied forces. Verify smooth 60fps performance.

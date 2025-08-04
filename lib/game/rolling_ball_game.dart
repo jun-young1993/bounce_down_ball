@@ -1,10 +1,10 @@
+import 'dart:math';
+
 import 'package:flame/game.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flame/timer.dart';
-import 'package:sensors_plus/sensors_plus.dart';
-import 'dart:async';
-import 'dart:io';
-import 'dart:math';
+import 'package:flame/events.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'components/ball.dart';
 import 'components/floor.dart';
@@ -12,132 +12,76 @@ import 'components/obstacle.dart';
 import 'components/bounce_pad.dart';
 import 'components/score_manager.dart';
 
-class RollingBallGame extends Forge2DGame with HasCollisionDetection {
+class RollingBallGame extends Forge2DGame
+    with HasCollisionDetection, HasKeyboardHandlerComponents {
   late Ball ball;
   late ScoreManager scoreManager;
-  late StreamSubscription<AccelerometerEvent>? accelSub;
 
-  // Game state
-  bool isGameOver = false;
-  double tiltSensitivity = 15.0;
-  Timer? scoreTimer;
-  Timer? spawnTimer;
-  final Random random = Random();
-
-  RollingBallGame() : super(gravity: Vector2(0, 20));
+  RollingBallGame() : super(gravity: Vector2(0, 10));
 
   @override
   Future<void> onLoad() async {
-    // Initialize score manager
+    // 세로 모바일 화면에 맞는 카메라 설정 - 더 넓은 뷰포트
+    camera.viewfinder.visibleGameSize = Vector2(size.x / 2, 300);
+    camera.viewfinder.position = Vector2(6, 10);
+
+    // 점수 관리자
     scoreManager = ScoreManager();
     add(scoreManager);
 
-    // Add ball
-    ball = Ball();
+    // 공 (화면 하단 정중앙에, 바닥에서 충분히 위)
+    ball = Ball(position: Vector2(size.x / 2, size.y - 100));
     add(ball);
 
-    // Add floor
-    add(Floor());
+    // 바닥 (화면 하단에)
+    add(Floor(position: Vector2(size.x / 2, size.y - 50)));
 
-    // Add initial obstacles and bounce pads
-    _spawnObstacles();
+    // 테스트용 장애물들 - 공 위쪽에 배치
+    add(Obstacle(position: Vector2(3, 10)));
+    add(Obstacle(position: Vector2(9, 8)));
+    add(BouncePad(position: Vector2(size.x / 2, size.y - 60)));
 
-    // Start sensor listening (only on mobile)
-    if (Platform.isAndroid || Platform.isIOS) {
-      _startSensorListening();
-    }
+    // 점수 오버레이 표시
+    // overlays.add('score');
 
-    // Start score timer
-    _startScoreTimer();
-
-    // Start spawn timer
-    _startSpawnTimer();
-
-    // Show score overlay
-    overlays.add('score');
-  }
-
-  void _spawnObstacles() {
-    // Spawn obstacles at different positions
-    add(Obstacle(position: Vector2(5, 8)));
-    add(Obstacle(position: Vector2(15, 12)));
-    add(Obstacle(position: Vector2(8, 16)));
-    add(Obstacle(position: Vector2(18, 20)));
-
-    // Spawn bounce pads
-    add(BouncePad(position: Vector2(12, 10)));
-    add(BouncePad(position: Vector2(6, 14)));
-    add(BouncePad(position: Vector2(16, 18)));
-  }
-
-  void _startScoreTimer() {
-    scoreTimer = Timer(
-      1.0,
-      onTick: () {
-        if (!isGameOver) {
-          scoreManager.addScore(1);
-        }
-      },
-      repeat: true,
+    print(
+      'Game loaded successfully! Camera: ${camera.viewfinder.visibleGameSize}',
     );
   }
 
-  void _startSpawnTimer() {
-    spawnTimer = Timer(
-      3.0,
-      onTick: () {
-        if (!isGameOver) {
-          _spawnRandomObstacle();
-        }
-      },
-      repeat: true,
-    );
-  }
+  @override
+  KeyEventResult onKeyEvent(
+    KeyEvent event,
+    Set<LogicalKeyboardKey> keysPressed,
+  ) {
+    final force = Vector2.zero();
 
-  void _spawnRandomObstacle() {
-    final x = random.nextDouble() * 20;
-    final y = random.nextDouble() * 10 + 5;
-
-    if (random.nextBool()) {
-      add(Obstacle(position: Vector2(x, y)));
-    } else {
-      add(BouncePad(position: Vector2(x, y)));
+    if (keysPressed.contains(LogicalKeyboardKey.arrowLeft)) {
+      force.x = -30;
     }
-  }
-
-  void _startSensorListening() {
-    try {
-      accelSub = accelerometerEvents.listen((AccelerometerEvent event) {
-        if (!isGameOver) {
-          // Apply tilt force to ball
-          final tiltForce = Vector2(event.x * tiltSensitivity, 0);
-          ball.applyTilt(tiltForce);
-        }
-      });
-    } catch (e) {
-      print('Sensor not available: $e');
+    if (keysPressed.contains(LogicalKeyboardKey.arrowRight)) {
+      force.x = 30;
     }
+
+    if (force.x != 0) {
+      ball.applyForce(force);
+      return KeyEventResult.handled;
+    }
+    return KeyEventResult.ignored;
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    scoreTimer?.update(dt);
-    spawnTimer?.update(dt);
+
+    // 공이 화면 밖으로 나가면 게임 오버
+    // if (ball.body.position.y > 22) {
+    //   gameOver();
+    // }
   }
 
   void gameOver() {
-    isGameOver = true;
-    accelSub?.cancel();
+    print('Game Over!');
     scoreManager.gameOver();
-    // You can add game over logic here
-  }
-
-  @override
-  void onRemove() {
-    accelSub?.cancel();
-    scoreTimer?.stop();
-    spawnTimer?.stop();
-    super.onRemove();
   }
 }

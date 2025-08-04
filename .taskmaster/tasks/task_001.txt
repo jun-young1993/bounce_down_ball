@@ -1,0 +1,11 @@
+# Task ID: 1
+# Title: Flame Game Setup with Forge2D Integration
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: Initialize the basic Flame game structure with Forge2D physics engine integration. Set up the main game class, physics world, and basic rendering system.
+# Details:
+Create the main RollingBallGame class that extends Forge2DGame. Configure gravity and physics world settings. Set up basic game loop and component management system.
+
+# Test Strategy:
+Verify that the game initializes without errors, physics world is properly configured, and basic rendering works.

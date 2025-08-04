@@ -1,15 +1,12 @@
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flame/collisions.dart';
 import 'package:flutter/material.dart';
 
-import 'obstacle.dart';
-import 'bounce_pad.dart';
+class Ball extends BodyComponent {
+  final Vector2? initialPosition;
+  static const double radius = 0.3;
 
-class Ball extends BodyComponent with CollisionCallbacks {
-  static const double radius = 0.5;
-
-  Ball({Vector2? position}) : super(renderBody: false);
+  Ball({Vector2? position}) : initialPosition = position;
 
   @override
   Body createBody() {
@@ -18,13 +15,12 @@ class Ball extends BodyComponent with CollisionCallbacks {
       shape,
       density: 1.0,
       friction: 0.3,
-      restitution: 0.3, // 일반 반동
+      restitution: 0.6,
     );
 
     final bodyDef = BodyDef()
       ..type = BodyType.dynamic
-      ..position = Vector2(10, 5)
-      ..linearDamping = 0.1; // 공기 저항
+      ..position = initialPosition ?? Vector2(5, 2);
 
     final body = world.createBody(bodyDef)..createFixture(fixtureDef);
     return body;
@@ -32,45 +28,23 @@ class Ball extends BodyComponent with CollisionCallbacks {
 
   @override
   void render(Canvas canvas) {
-    // Draw ball
+    // 파란색 공 - 더 크게
     final paint = Paint()
       ..color = Colors.blue
       ..style = PaintingStyle.fill;
 
-    canvas.drawCircle(
-      Offset.zero,
-      radius * 10, // Scale for rendering
-      paint,
-    );
+    canvas.drawCircle(Offset.zero, 25, paint);
 
-    // Draw ball outline
+    // 흰색 테두리
     final outlinePaint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
+      ..strokeWidth = 3;
 
-    canvas.drawCircle(Offset.zero, radius * 10, outlinePaint);
+    canvas.drawCircle(Offset.zero, 25, outlinePaint);
   }
 
-  void applyTilt(Vector2 force) {
+  void applyForce(Vector2 force) {
     body.applyForce(force);
-  }
-
-  @override
-  void onCollisionStart(
-    Set<Vector2> intersectionPoints,
-    PositionComponent other,
-  ) {
-    super.onCollisionStart(intersectionPoints, other);
-
-    // Handle collision with different components
-    if (other is Obstacle) {
-      // Game over or score penalty
-      print('Hit obstacle!');
-    } else if (other is BouncePad) {
-      // Apply bounce effect
-      body.applyLinearImpulse(Vector2(0, -15));
-      print('Bounced!');
-    }
   }
 }

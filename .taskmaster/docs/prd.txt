@@ -1,0 +1,177 @@
+# Bounce Down Ball - Flutter Game PRD
+
+## Overview
+Bounce Down Ball is a physics-based puzzle/runner game built with Flutter using the Flame game engine. The game features a ball that continuously rolls down a slope while the player controls its horizontal movement through device tilt (mobile) or keyboard input (desktop). Players must avoid obstacles and use bounce pads to gain height, earning points for survival time and successful maneuvers.
+
+## Core Features
+
+### 1. Physics-Based Ball Movement
+- Realistic physics simulation using Forge2D (Box2D)
+- Ball responds to gravity and rolls down slopes
+- Smooth horizontal movement controlled by device tilt or keyboard
+- Air resistance and friction for realistic movement
+
+### 2. Obstacle Avoidance System
+- Static red obstacles that cause game over on collision
+- Dynamic obstacle spawning system
+- Increasing difficulty as game progresses
+- Visual feedback for collisions
+
+### 3. Bounce Pad Mechanics
+- Yellow bounce pads that launch the ball upward
+- High restitution physics for enhanced bounce effect
+- Strategic placement for gameplay variety
+- Visual and audio feedback for successful bounces
+
+### 4. Score and Progress System
+- Real-time score tracking based on survival time
+- High score persistence
+- Progressive difficulty scaling
+- Achievement system for milestones
+
+### 5. Cross-Platform Controls
+- Mobile: Accelerometer-based tilt controls
+- Desktop: Keyboard arrow key controls
+- Responsive input handling
+- Platform-specific optimizations
+
+## User Experience
+
+### User Personas
+- **Casual Mobile Gamers**: Looking for quick, engaging gameplay sessions
+- **Physics Game Enthusiasts**: Enjoy realistic physics and strategic gameplay
+- **Cross-Platform Users**: Want consistent experience across devices
+
+### Key User Flows
+1. **Game Start**: Launch app → See instructions → Start game
+2. **Core Gameplay**: Tilt device/keyboard → Control ball → Avoid obstacles → Hit bounce pads
+3. **Scoring**: Survive longer → Earn points → Beat high score
+4. **Game Over**: Hit obstacle → See final score → Restart option
+
+### UI/UX Considerations
+- Clean, minimalist design with clear visual hierarchy
+- Intuitive controls with responsive feedback
+- Real-time score display with high score tracking
+- Clear visual distinction between obstacles and bounce pads
+- Smooth animations and particle effects
+
+## Technical Architecture
+
+### System Components
+- **Game Engine**: Flame with Forge2D physics
+- **Input System**: Sensors_plus for mobile, Flutter services for desktop
+- **State Management**: Component-based architecture with ValueNotifier
+- **Rendering**: Custom Canvas rendering with optimized graphics
+- **Audio**: Sound effects for collisions and bounces
+
+### Data Models
+- **Ball**: Physics body with position, velocity, and collision detection
+- **Obstacle**: Static physics body with collision callbacks
+- **BouncePad**: Static physics body with high restitution
+- **ScoreManager**: Score tracking and persistence
+- **GameState**: Overall game state management
+
+### APIs and Integrations
+- **Sensors_plus**: Accelerometer data for mobile tilt controls
+- **Flame**: Game engine and physics simulation
+- **Forge2D**: Box2D physics engine integration
+- **Flutter Services**: Platform-specific input handling
+
+### Infrastructure Requirements
+- Cross-platform Flutter development environment
+- Mobile device testing for sensor functionality
+- Desktop testing for keyboard input
+- Performance optimization for smooth 60fps gameplay
+
+## Development Roadmap
+
+### Phase 1: Core Physics and Movement (MVP)
+- Basic Flame game setup with Forge2D integration
+- Ball physics with gravity and rolling mechanics
+- Simple floor and wall collision detection
+- Basic rendering system for game objects
+- Platform-specific input handling (mobile tilt, desktop keyboard)
+
+### Phase 2: Gameplay Mechanics
+- Obstacle system with collision detection
+- Bounce pad implementation with enhanced physics
+- Score tracking system with real-time updates
+- Game over conditions and restart functionality
+- Dynamic obstacle spawning system
+
+### Phase 3: Enhanced User Experience
+- Improved visual design with better graphics
+- Sound effects and audio feedback
+- High score persistence system
+- Progressive difficulty scaling
+- Performance optimizations
+
+### Phase 4: Polish and Features
+- Particle effects and visual feedback
+- Achievement system
+- Multiple difficulty levels
+- Power-ups and special mechanics
+- Social features (leaderboards, sharing)
+
+## Logical Dependency Chain
+
+### Foundation First (Phase 1)
+1. **Flame Game Setup**: Initialize Forge2D game with basic structure
+2. **Ball Physics**: Implement realistic ball movement and physics
+3. **Input System**: Platform-specific controls (mobile tilt, desktop keyboard)
+4. **Basic Rendering**: Simple graphics for ball, floor, and walls
+5. **Collision Detection**: Basic collision system for game boundaries
+
+### Core Gameplay (Phase 2)
+6. **Obstacle System**: Static obstacles with collision detection
+7. **Bounce Pad Mechanics**: Enhanced physics for bounce effects
+8. **Score System**: Real-time scoring and high score tracking
+9. **Game State Management**: Game over, restart, and state transitions
+10. **Dynamic Spawning**: Random obstacle and bounce pad generation
+
+### User Experience (Phase 3)
+11. **Visual Polish**: Improved graphics and animations
+12. **Audio System**: Sound effects and background music
+13. **UI Improvements**: Better score display and game information
+14. **Performance Optimization**: Smooth 60fps gameplay
+15. **Cross-Platform Testing**: Ensure consistent experience
+
+### Advanced Features (Phase 4)
+16. **Particle Effects**: Visual feedback for collisions and bounces
+17. **Achievement System**: Milestone tracking and rewards
+18. **Difficulty Scaling**: Progressive challenge increase
+19. **Power-ups**: Special abilities and mechanics
+20. **Social Features**: Leaderboards and score sharing
+
+## Risks and Mitigations
+
+### Technical Challenges
+- **Physics Performance**: Optimize Forge2D usage for smooth gameplay
+- **Cross-Platform Input**: Ensure consistent controls across devices
+- **Memory Management**: Prevent memory leaks in long gameplay sessions
+
+### MVP Considerations
+- **Minimal Viable Game**: Focus on core physics and basic obstacles first
+- **Quick Iteration**: Build playable prototype early for testing
+- **Scalable Architecture**: Design for easy feature additions
+
+### Resource Constraints
+- **Development Time**: Prioritize core features over polish initially
+- **Testing Complexity**: Focus on one platform first, then expand
+- **Performance Requirements**: Optimize for lower-end devices
+
+## Appendix
+
+### Research Findings
+- Flame engine provides excellent performance for 2D physics games
+- Forge2D integration offers realistic physics simulation
+- Cross-platform development reduces time-to-market
+- Mobile tilt controls provide intuitive gameplay experience
+
+### Technical Specifications
+- **Target Platforms**: Android, iOS, Windows, Web
+- **Performance Target**: 60fps on mid-range devices
+- **Physics Engine**: Forge2D (Box2D port for Dart)
+- **Input Methods**: Accelerometer (mobile), Keyboard (desktop)
+- **Graphics**: Custom Canvas rendering with Flutter
+- **Audio**: Flutter audio plugins for sound effects 

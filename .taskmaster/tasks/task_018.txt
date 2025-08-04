@@ -1,0 +1,11 @@
+# Task ID: 18
+# Title: Difficulty Scaling System
+# Status: pending
+# Dependencies: 10
+# Priority: medium
+# Description: Implement progressive difficulty scaling to increase challenge over time. Add dynamic difficulty adjustment based on player performance.
+# Details:
+Create difficulty scaling system with increasing challenge. Implement dynamic obstacle spawning and speed adjustments. Add adaptive difficulty.
+
+# Test Strategy:
+Test difficulty progression and adaptive scaling. Verify challenge increase without unfair difficulty spikes.

@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
-import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:sensors_plus/sensors_plus.dart';
 
 import 'game/rolling_ball_game.dart';
-import 'game/components/ball.dart';
-import 'game/components/floor.dart';
-import 'game/components/obstacle.dart';
-import 'game/components/bounce_pad.dart';
-import 'game/components/score_manager.dart';
 
 void main() {
   runApp(const MyApp());
@@ -77,7 +70,7 @@ class ScoreOverlay extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.7),
+              color: Colors.black.withOpacity(0.3),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
@@ -123,7 +116,7 @@ class ScoreOverlay extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.7),
+              color: Colors.black.withOpacity(0.3),
               borderRadius: BorderRadius.circular(20),
             ),
             child: const Column(

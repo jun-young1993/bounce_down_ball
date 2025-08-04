@@ -1,0 +1,332 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Flame Game Setup with Forge2D Integration",
+        "description": "Initialize the basic Flame game structure with Forge2D physics engine integration. Set up the main game class, physics world, and basic rendering system.",
+        "details": "Create the main RollingBallGame class that extends Forge2DGame. Configure gravity and physics world settings. Set up basic game loop and component management system.",
+        "testStrategy": "Verify that the game initializes without errors, physics world is properly configured, and basic rendering works.",
+        "dependencies": [],
+        "status": "done",
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Ball Physics Implementation",
+        "description": "Implement realistic ball physics with gravity, rolling mechanics, and proper collision detection. The ball should respond naturally to forces and roll down slopes.",
+        "details": "Create Ball component with CircleShape physics body. Configure density, friction, and restitution properties. Implement proper force application for tilt controls.",
+        "testStrategy": "Test ball movement under gravity, rolling behavior on slopes, and response to applied forces. Verify smooth 60fps performance.",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Platform-Specific Input System",
+        "description": "Implement cross-platform input handling for mobile tilt controls and desktop keyboard input. Ensure responsive and consistent controls across devices.",
+        "details": "Use sensors_plus for mobile accelerometer data. Implement keyboard event handling for desktop. Create unified input abstraction layer.",
+        "testStrategy": "Test tilt controls on mobile devices and keyboard controls on desktop. Verify responsive input handling and consistent behavior.",
+        "dependencies": [
+          "2"
+        ],
+        "status": "done",
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Basic Rendering System",
+        "description": "Implement custom Canvas rendering for game objects with optimized graphics. Create visual representations for ball, floor, and other game elements.",
+        "details": "Create render methods for Ball, Floor, Obstacle, and BouncePad components. Use Flutter Canvas API for custom graphics. Implement proper scaling and positioning.",
+        "testStrategy": "Verify all game objects render correctly with proper colors, shapes, and positioning. Test performance on different screen sizes.",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Collision Detection System",
+        "description": "Implement comprehensive collision detection system for game boundaries and object interactions. Handle collision callbacks and game state changes.",
+        "details": "Set up collision detection using Flame's HasCollisionDetection mixin. Implement collision callbacks for different object types. Handle game over conditions.",
+        "testStrategy": "Test collision detection between ball and obstacles, ball and bounce pads, and ball and boundaries. Verify proper callback execution.",
+        "dependencies": [
+          "2",
+          "4"
+        ],
+        "status": "done",
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Obstacle System Implementation",
+        "description": "Create static obstacle system with collision detection that causes game over when the ball hits them. Implement visual feedback for obstacles.",
+        "details": "Create Obstacle component with PolygonShape physics body. Implement collision callbacks for game over logic. Add visual rendering with red color scheme.",
+        "testStrategy": "Test obstacle collision detection and game over functionality. Verify visual rendering and proper physics behavior.",
+        "dependencies": [
+          "4",
+          "5"
+        ],
+        "status": "done",
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Bounce Pad Mechanics",
+        "description": "Implement bounce pad system with enhanced physics for upward ball movement. Create high restitution physics and visual feedback.",
+        "details": "Create BouncePad component with high restitution physics. Implement collision callbacks for upward force application. Add yellow visual rendering.",
+        "testStrategy": "Test bounce pad collision and upward force application. Verify enhanced bounce effect and visual feedback.",
+        "dependencies": [
+          "4",
+          "5"
+        ],
+        "status": "done",
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Score Tracking System",
+        "description": "Implement real-time score tracking system with high score persistence. Create UI components for score display and updates.",
+        "details": "Create ScoreManager component with ValueNotifier for reactive updates. Implement score increment logic and high score tracking. Add UI overlay for score display.",
+        "testStrategy": "Test score increment during gameplay and high score persistence. Verify UI updates and display accuracy.",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Game State Management",
+        "description": "Implement comprehensive game state management including game over, restart functionality, and state transitions.",
+        "details": "Create game state management system with proper state transitions. Implement game over logic and restart functionality. Handle state persistence.",
+        "testStrategy": "Test game over conditions, restart functionality, and state transitions. Verify proper state management across game sessions.",
+        "dependencies": [
+          "5",
+          "8"
+        ],
+        "status": "done",
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Dynamic Obstacle Spawning",
+        "description": "Implement dynamic spawning system for obstacles and bounce pads with increasing difficulty. Create timer-based spawning logic.",
+        "details": "Create spawning system with Timer components. Implement random obstacle and bounce pad generation. Add difficulty scaling over time.",
+        "testStrategy": "Test dynamic spawning system and difficulty progression. Verify proper object generation and performance impact.",
+        "dependencies": [
+          "6",
+          "7",
+          "9"
+        ],
+        "status": "done",
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Visual Polish and Graphics",
+        "description": "Improve visual design with better graphics, animations, and visual effects. Enhance overall game aesthetics.",
+        "details": "Enhance rendering with better colors, gradients, and visual effects. Add animations for object interactions. Improve overall visual appeal.",
+        "testStrategy": "Test visual improvements and animation performance. Verify enhanced aesthetics without performance degradation.",
+        "dependencies": [
+          "4"
+        ],
+        "status": "pending",
+        "priority": "low",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Audio System Implementation",
+        "description": "Add sound effects and background music to enhance game experience. Implement audio feedback for collisions and interactions.",
+        "details": "Integrate Flutter audio plugins for sound effects. Add collision sounds, bounce effects, and background music. Implement audio controls.",
+        "testStrategy": "Test audio playback for different game events. Verify sound quality and performance impact.",
+        "dependencies": [
+          "5"
+        ],
+        "status": "pending",
+        "priority": "low",
+        "subtasks": []
+      },
+      {
+        "id": 13,
+        "title": "UI Improvements and Information Display",
+        "description": "Enhance user interface with better score display, game information, and user feedback. Improve overall user experience.",
+        "details": "Create improved UI overlays with better design. Add game instructions, controls information, and enhanced score display. Implement responsive UI.",
+        "testStrategy": "Test UI responsiveness and information accuracy. Verify user experience improvements across different screen sizes.",
+        "dependencies": [
+          "8"
+        ],
+        "status": "done",
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Performance Optimization",
+        "description": "Optimize game performance for smooth 60fps gameplay across different devices. Implement performance monitoring and improvements.",
+        "details": "Profile game performance and identify bottlenecks. Optimize rendering, physics calculations, and memory usage. Implement performance monitoring.",
+        "testStrategy": "Test performance on different devices and screen sizes. Verify consistent 60fps gameplay and smooth animations.",
+        "dependencies": [
+          "1",
+          "4",
+          "10"
+        ],
+        "status": "done",
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 15,
+        "title": "Cross-Platform Testing",
+        "description": "Ensure consistent game experience across all target platforms. Test functionality on Android, iOS, Windows, and Web.",
+        "details": "Test game functionality on all target platforms. Verify input controls, performance, and visual consistency. Fix platform-specific issues.",
+        "testStrategy": "Comprehensive testing on all target platforms. Verify consistent behavior and performance across devices.",
+        "dependencies": [
+          "3",
+          "14"
+        ],
+        "status": "in-progress",
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "키보드 이벤트 타입 오류 수정",
+            "description": "Flame의 HasKeyboardHandlerComponents에서 onKeyEvent 메서드의 반환 타입을 KeyEventResult로 수정",
+            "details": "",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 15
+          },
+          {
+            "id": 2,
+            "title": "게임 렌더링 및 카메라 설정 최적화",
+            "description": "게임 화면이 제대로 보이도록 카메라 뷰포트와 렌더링 크기 조정",
+            "details": "",
+            "status": "in-progress",
+            "dependencies": [],
+            "parentTaskId": 15
+          },
+          {
+            "id": 3,
+            "title": "윈도우 플랫폼 테스트 및 디버깅",
+            "description": "윈도우에서 게임이 제대로 동작하는지 테스트하고 문제점 수정",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 15
+          },
+          {
+            "id": 4,
+            "title": "모바일 센서 입력 구현",
+            "description": "모바일에서 기울기 센서를 이용한 공 조작 기능 구현",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 15
+          },
+          {
+            "id": 5,
+            "title": "웹 플랫폼 테스트",
+            "description": "웹 브라우저에서 게임 동작 테스트 및 최적화",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 15
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "title": "Particle Effects System",
+        "description": "Implement particle effects for visual feedback during collisions and bounces. Add dynamic visual effects to enhance gameplay.",
+        "details": "Create particle system for collision effects and bounce feedback. Implement particle physics and rendering. Add visual impact effects.",
+        "testStrategy": "Test particle effects performance and visual impact. Verify effects enhance gameplay without performance degradation.",
+        "dependencies": [
+          "5",
+          "11"
+        ],
+        "status": "pending",
+        "priority": "low",
+        "subtasks": []
+      },
+      {
+        "id": 17,
+        "title": "Achievement System",
+        "description": "Implement achievement system for milestone tracking and rewards. Add gamification elements to increase player engagement.",
+        "details": "Create achievement tracking system with milestone detection. Implement achievement UI and reward system. Add progress tracking.",
+        "testStrategy": "Test achievement detection and reward system. Verify achievement UI and progress tracking accuracy.",
+        "dependencies": [
+          "8"
+        ],
+        "status": "pending",
+        "priority": "low",
+        "subtasks": []
+      },
+      {
+        "id": 18,
+        "title": "Difficulty Scaling System",
+        "description": "Implement progressive difficulty scaling to increase challenge over time. Add dynamic difficulty adjustment based on player performance.",
+        "details": "Create difficulty scaling system with increasing challenge. Implement dynamic obstacle spawning and speed adjustments. Add adaptive difficulty.",
+        "testStrategy": "Test difficulty progression and adaptive scaling. Verify challenge increase without unfair difficulty spikes.",
+        "dependencies": [
+          "10"
+        ],
+        "status": "pending",
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 19,
+        "title": "Power-ups and Special Mechanics",
+        "description": "Add power-ups and special game mechanics to enhance gameplay variety. Implement temporary abilities and special effects.",
+        "details": "Create power-up system with temporary abilities. Implement special mechanics like speed boosts, shield effects, and time slow. Add power-up spawning.",
+        "testStrategy": "Test power-up functionality and special mechanics. Verify power-up effects and spawning system.",
+        "dependencies": [
+          "10",
+          "16"
+        ],
+        "status": "pending",
+        "priority": "low",
+        "subtasks": []
+      },
+      {
+        "id": 20,
+        "title": "Social Features and Leaderboards",
+        "description": "Implement social features including leaderboards and score sharing. Add multiplayer elements and social integration.",
+        "details": "Create leaderboard system with score sharing. Implement social media integration for score sharing. Add multiplayer features if feasible.",
+        "testStrategy": "Test leaderboard functionality and social sharing. Verify score sharing and social integration accuracy.",
+        "dependencies": [
+          "8",
+          "17"
+        ],
+        "status": "pending",
+        "priority": "low",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "version": "1.0",
+      "created": "2024-12-19T10:00:00Z",
+      "lastModified": "2024-12-19T10:00:00Z",
+      "totalTasks": 20,
+      "completedTasks": 6,
+      "pendingTasks": 14,
+      "description": "Tasks for master context",
+      "updated": "2025-08-04T04:30:01.239Z"
+    }
+  }
+}
